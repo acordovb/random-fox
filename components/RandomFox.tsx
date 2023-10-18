@@ -18,7 +18,7 @@
 // The second way to develop a componen is with explicit type to return in a function
 
 type Props = {
-    image: string
+    image: string,
 }
 
 export const RandomFox = ({ image }: Props): JSX.Element => {
