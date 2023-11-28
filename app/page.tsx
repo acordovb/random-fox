@@ -1,12 +1,11 @@
 'use client';
 import { useState } from 'react'
 import type { MouseEventHandler } from 'react';
-import { RandomFox } from '../components/RandomFox'
+import { LazyImage } from '../components/RandomFox'
+import { random } from "lodash";
 
-const randomNumber = () => Math.floor(Math.random() * 123) + 1;
+const randomNumber = () => random(1, 123);
 const generateId = () => Math.random().toString(36).substring(2, 9)
-
-type ImageItem = { id: string, url: string }
 
 export default function Home() {
   const [images, setimages] = useState<Array<ImageItem>>([])
@@ -28,9 +27,18 @@ export default function Home() {
         Hello Platzi!
       </h1>
       <button onClick={addNewFox}> Add new Fox</button>
-      {images.map(({ id, url }) => (
+      {images.map(({ id, url }, index) => (
         <div key={id} className="p-4">
-          <RandomFox image={url} />
+          <LazyImage
+            src={url}
+            onClick={() => console.log("Hey!!!")}
+            className="rounded bg-gray-300"
+            width={320}
+            height="auto"
+            onLazyLoad={(img) => {
+              console.log(`Image #${index + 1} cargada. Nodo:`, img);
+            }}
+          />
         </div>
       ))}
     </main>
